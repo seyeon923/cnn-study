@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cnn-study"
+version = "0.1.0"
+description = "Study and implementation of classical to modern CNN architectures with experiments and benchmarks."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Kim Se-yeon", email = "tpdussla93@gmail.com" }
+]
+dependencies = [
+  "torch>=2.3",
+  "torchvision>=0.18",
+  "PyYAML>=6.0",
+  "numpy>=1.26",
+  "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.5",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cnn_study"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
