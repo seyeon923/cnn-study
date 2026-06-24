@@ -83,6 +83,8 @@ class LeNet(nn.Module):
 
 
 if __name__ == "__main__":
+    from thop import profile
+
     model = LeNet(
         input_channels=3,
         output_classes=10,
@@ -94,4 +96,10 @@ if __name__ == "__main__":
     for size in [32, 36, 48, 64]:
         x = torch.randn(4, 3, size, size)
         y = model(x)
-        print(f"input: {size}x{size} -> output: {y.shape}")
+
+        macs, params = profile(model, inputs=(x,))
+
+        print(f"Input: {x.shape}")
+        print(f"Output: {y.shape}")
+        print(f"MACs: {macs:,}")
+        print(f"Params: {params:,}")
