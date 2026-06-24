@@ -2,7 +2,7 @@ import torch
 from torch import nn
 
 
-class LeNet(nn.Module):
+class LeNet5(nn.Module):
     """Modernized LeNet with flexible input size.
 
     Notes:
@@ -85,7 +85,7 @@ class LeNet(nn.Module):
 if __name__ == "__main__":
     from thop import profile
 
-    model = LeNet(
+    model = LeNet5(
         input_channels=3,
         output_classes=10,
         activation="relu",
