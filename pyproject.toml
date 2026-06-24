@@ -19,7 +19,8 @@ dependencies = [
   "PyYAML>=6.0",
   "numpy>=1.26",
   "tqdm>=4.66",
-  "thop"
+  "thop",
+  "lightning"
 ]
 
 [project.optional-dependencies]
