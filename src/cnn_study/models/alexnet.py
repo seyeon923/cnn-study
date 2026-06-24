@@ -5,7 +5,9 @@ from torch import nn
 class AlexNet(nn.Module):
     """Modernized AlexNet with flexible input size via adaptive pooling."""
 
-    def __init__(self, input_channels: int, output_classes: int, use_bn: bool = False):
+    def __init__(
+        self, input_channels: int = 3, output_classes: int = 1000, use_bn: bool = False
+    ):
         super().__init__()
 
         layers = []

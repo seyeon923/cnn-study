@@ -13,8 +13,8 @@ class LeNet5(nn.Module):
 
     def __init__(
         self,
-        input_channels: int,
-        output_classes: int,
+        input_channels: int = 1,
+        output_classes: int = 10,
         activation: str = "relu",
         pooling: str = "avg",
         use_bn: bool = False,
