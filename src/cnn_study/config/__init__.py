@@ -1,15 +1,6 @@
-__all__ = [
-    "ModelConfig",
-    "OptimizerConfig",
-    "LRSchedulerConfig",
-    "TrainConfig",
-    "ExperimentConfig",
-]
+__all__ = ["ComponentConfig", "TrainConfig", "ExperimentConfig", "load_yaml_config"]
 
 from .component import ComponentConfig
 from .experiment import ExperimentConfig
+from .loader import load_yaml_config
 from .train import TrainConfig
-
-ModelConfig = ComponentConfig
-OptimizerConfig = ComponentConfig
-LRSchedulerConfig = ComponentConfig
