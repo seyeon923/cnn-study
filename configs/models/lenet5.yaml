@@ -5,4 +5,4 @@ params:
   output_classes: 10
   activation: "relu" # "relu", "sigmoid", or "tanh"
   pooling: "avg" # "avg" or "max"
-  use_bn: false # use batch normalization
+  use_bn: false # set to batch normalization

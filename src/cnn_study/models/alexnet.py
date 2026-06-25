@@ -6,7 +6,11 @@ class AlexNet(nn.Module):
     """Modernized AlexNet with flexible input size via adaptive pooling."""
 
     def __init__(
-        self, input_channels: int = 3, output_classes: int = 1000, use_bn: bool = False
+        self,
+        input_channels: int = 3,
+        output_classes: int = 1000,
+        use_bn: bool = False,
+        use_final_dropout: bool = False,
     ):
         super().__init__()
 
@@ -48,15 +52,19 @@ class AlexNet(nn.Module):
         self.features = nn.Sequential(*layers)
         self.avgpool = nn.AdaptiveAvgPool2d((6, 6))
 
-        self.classifier = nn.Sequential(
+        classfier_layers = [
+            nn.Dropout(p=0.5),
             nn.Linear(256 * 6 * 6, 4096),
             nn.ReLU(inplace=True),
             nn.Dropout(p=0.5),
             nn.Linear(4096, 4096),
             nn.ReLU(inplace=True),
-            nn.Dropout(p=0.5),
-            nn.Linear(4096, output_classes),
-        )
+        ]
+        if use_final_dropout:
+            classfier_layers.append(nn.Dropout(p=0.5))
+        classfier_layers.append(nn.Linear(4096, output_classes))
+
+        self.classifer = nn.Sequential(*classfier_layers)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = self.features(x)

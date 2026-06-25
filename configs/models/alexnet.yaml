@@ -3,4 +3,5 @@ name: "alexnet"
 params:
   input_channels: 3
   output_classes: 1000
-  use_bn: false # use batch normalization
+  use_bn: false # set to apply batch normalization
+  use_final_dropout: false # apply dropout to the final FC layer
