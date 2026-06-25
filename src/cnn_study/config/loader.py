@@ -6,7 +6,7 @@ import yaml
 from .component import ComponentConfig
 
 
-def load_yaml_config(path: str | Path, data_class: type):
+def load_config(path: str | Path, data_class: type):
     with open(path, "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
 
@@ -15,13 +15,13 @@ def load_yaml_config(path: str | Path, data_class: type):
     )
 
 
-def load_yaml_component_config(path: str | Path):
-    return load_yaml_config(path, ComponentConfig)
+def load_component_config(path: str | Path):
+    return load_config(path, ComponentConfig)
 
 
 if __name__ == "__main__":
-    lenet5_cfg = load_yaml_component_config("./configs/models/lenet5.yaml")
+    lenet5_cfg = load_component_config("./configs/models/lenet5.yaml")
     print(lenet5_cfg)
 
-    alexnet_cfg = load_yaml_component_config("./configs/models/alexnet.yaml")
+    alexnet_cfg = load_component_config("./configs/models/alexnet.yaml")
     print(alexnet_cfg)
