@@ -1,6 +1,6 @@
 import torch
 
-from . import LRSchedulerConfig, OptimizerConfig
+from .component import ComponentConfig
 
 OPTIMIZER_REGISTRY: dict[str, type[torch.optim.Optimizer]] = {
     "Adam": torch.optim.Adam,
@@ -14,11 +14,11 @@ LR_SCHEDULER_REGISTRY: dict[str, type[torch.optim.lr_scheduler.LRScheduler]] = {
 }
 
 
-def build_optimizer(cfg: OptimizerConfig):
+def build_optimizer(cfg: ComponentConfig):
     cls = OPTIMIZER_REGISTRY[cfg.name]
     return cls(**cfg.params)
 
 
-def build_lr_scheduler(cfg: LRSchedulerConfig):
+def build_lr_scheduler(cfg: ComponentConfig):
     cls = LR_SCHEDULER_REGISTRY[cfg.name]
     return cls(**cfg.params)
