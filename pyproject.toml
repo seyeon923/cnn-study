@@ -35,4 +35,4 @@ packages = ["src/cnn_study"]
 
 [tool.ruff]
 line-length = 100
-target-version = "py310"
+target-version = "py312"
