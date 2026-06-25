@@ -1,0 +1,6 @@
+name: "alexnet"
+
+params:
+  input_channels: 3
+  output_classes: 1000
+  use_bn: false # use batch normalization

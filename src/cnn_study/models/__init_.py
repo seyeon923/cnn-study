@@ -5,7 +5,7 @@ from torch import nn
 from .alexnet import AlexNet
 from .lenet import LeNet5
 
-MODEL_REGISTRY: dict[str, type[nn.Module]] = {"lenet": LeNet5, "alexnet": AlexNet}
+MODEL_REGISTRY: dict[str, type[nn.Module]] = {"lenet5": LeNet5, "alexnet": AlexNet}
 
 
 def build_model(name: str, **kwargs: Any) -> nn.Module:
