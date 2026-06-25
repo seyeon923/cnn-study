@@ -1,5 +1,6 @@
 import torch
 
+from ..models import build_model as __build_model
 from .component import ComponentConfig
 
 OPTIMIZER_REGISTRY: dict[str, type[torch.optim.Optimizer]] = {
@@ -12,6 +13,10 @@ LR_SCHEDULER_REGISTRY: dict[str, type[torch.optim.lr_scheduler.LRScheduler]] = {
     "CosineAnnealingLR": torch.optim.lr_scheduler.CosineAnnealingLR,
     "MultiStepLR": torch.optim.lr_scheduler.MultiStepLR,
 }
+
+
+def build_model(cfg: ComponentConfig):
+    return __build_model(cfg.name, **cfg.params)
 
 
 def build_optimizer(cfg: ComponentConfig):

@@ -1,4 +1,9 @@
-__all__ = ["ComponentConfig", "TrainConfig", "ExperimentConfig", "load_yaml_config"]
+__all__ = [
+    "ComponentConfig",
+    "TrainConfig",
+    "ExperimentConfig",
+    "load_yaml_config",
+]
 
 from .component import ComponentConfig
 from .experiment import ExperimentConfig
