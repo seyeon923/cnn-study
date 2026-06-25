@@ -1,3 +1,5 @@
-__all__ = ["ModelConfig"]
+from .component import ComponentConfig
 
-from .model import ModelConfig
+ModelConfig = ComponentConfig
+OptimizerConfig = ComponentConfig
+LRSchedulerConfig = ComponentConfig
