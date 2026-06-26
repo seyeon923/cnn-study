@@ -25,5 +25,8 @@ def build_optimizer(cfg: ComponentConfig):
 
 
 def build_lr_scheduler(cfg: ComponentConfig):
+    if cfg is None:
+        return None
+
     cls = LR_SCHEDULER_REGISTRY[cfg.name]
     return cls(**cfg.params)

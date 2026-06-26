@@ -14,6 +14,11 @@ class AlexNet(nn.Module):
     ):
         super().__init__()
 
+        self.input_channels = input_channels
+        self.output_classes = output_classes
+        self.use_bn = use_bn
+        self.use_final_dropout = use_final_dropout
+
         layers = []
 
         # Conv block 1

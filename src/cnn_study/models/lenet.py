@@ -21,6 +21,8 @@ class LeNet5(nn.Module):
     ):
         super().__init__()
 
+        self.input_channels = input_channels
+        self.output_classes = output_classes
         self.activation_name = activation
         self.pooling_name = pooling
         self.use_bn = use_bn
