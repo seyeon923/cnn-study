@@ -21,7 +21,8 @@ dependencies = [
   "tqdm>=4.66",
   "thop",
   "lightning",
-  "dacite"
+  "dacite",
+  "matplotlib>=3.10.9",
 ]
 
 [project.optional-dependencies]
