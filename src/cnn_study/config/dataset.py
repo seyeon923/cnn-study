@@ -9,8 +9,6 @@ class DatasetConfig:
     name: str = "MNIST"
     root: str = "./data"
 
-    split: str = "train"
-
     num_classes: int = None
 
     extra_params: dict[str, Any] = field(default_factory=dict)
