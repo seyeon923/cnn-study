@@ -1,25 +1,22 @@
-from dataclasses import asdict
-
 import lightning as L
 import torch
 from torch import nn
 from torchmetrics.classification import Accuracy
 
-from ..config import ExperimentConfig
-from ..config.factory import build_lr_scheduler, build_model, build_optimizer
+from ..config import TrainConfig
+from ..config.factory import build_lr_scheduler, build_optimizer
 
 
 class ClassifierModule(L.LightningModule):
-    def __init__(self, exp_cfg: ExperimentConfig):
+    def __init__(self, model: nn.Module, train_cfg: TrainConfig):
         super().__init__()
 
-        self.exp_cfg = exp_cfg
-        self.save_hyperparameters({"config": asdict(exp_cfg)})
+        self.train_cfg = train_cfg
 
-        self.model = build_model(exp_cfg.model)
+        self.model = model
         self.criterion = nn.CrossEntropyLoss()
 
-        self.num_classes = getattr(self.model, "output_classes")
+        self.num_classes = getattr(model, "output_classes")
 
         self.train_acc = Accuracy(task="multiclass", num_classes=self.num_classes)
         self.val_acc = Accuracy(task="multiclass", num_classes=self.num_classes)
