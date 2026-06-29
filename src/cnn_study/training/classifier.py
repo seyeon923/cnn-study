@@ -64,7 +64,9 @@ class LitClassfier(L.LightningModule):
 
     def configure_optimizers(self):
         optimizer = instantiate(self.train_cfg.optimizer)
-        lr_scheduler = instantiate(self.train_cfg.lr_scheduler)
+        lr_scheduler = instantiate(
+            self.train_cfg.lr_scheduler, last_epoch=self.train_cfg.epochs
+        )
 
         if lr_scheduler is None:
             return optimizer
