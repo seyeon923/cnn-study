@@ -3,11 +3,11 @@ from dataclasses import dataclass, field
 from omegaconf import DictConfig, OmegaConf
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(slots=True)
 class TrainConfig:
     epochs: int = 100
     batch_size: int = 32
     optimizer: DictConfig = field(
         default_factory=lambda: OmegaConf.create({"_target_": "torch.optim.AdamW"})
     )
-    lr_scheduler: DictConfig | None = None
+    lr_scheduler: DictConfig = field(default_factory=OmegaConf.create)
