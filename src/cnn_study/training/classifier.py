@@ -7,7 +7,7 @@ from ..config import TrainConfig
 from ..config.factory import build_lr_scheduler, build_optimizer
 
 
-class ClassifierModule(L.LightningModule):
+class LitClassfier(L.LightningModule):
     def __init__(self, model: nn.Module, train_cfg: TrainConfig):
         super().__init__()
 
