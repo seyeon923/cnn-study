@@ -3,8 +3,6 @@ from pathlib import Path
 import dacite
 import yaml
 
-from .component import ComponentConfig
-
 
 def load_config(path: str | Path, data_class: type):
     with open(path, "r", encoding="utf-8") as f:
@@ -15,13 +13,16 @@ def load_config(path: str | Path, data_class: type):
     )
 
 
-def load_component_config(path: str | Path):
-    return load_config(path, ComponentConfig)
-
-
 if __name__ == "__main__":
-    lenet5_cfg = load_component_config("./configs/models/lenet5.yaml")
-    print(lenet5_cfg)
+    from hydra.utils import instantiate
+    from omegaconf import OmegaConf
 
-    alexnet_cfg = load_component_config("./configs/models/alexnet.yaml")
+    lenet5_cfg = OmegaConf.load("./configs/models/lenet5.yaml")
+    print(lenet5_cfg)
+    lenet5 = instantiate(lenet5_cfg)
+    print(lenet5)
+
+    alexnet_cfg = OmegaConf.load("./configs/models/alexnet.yaml")
     print(alexnet_cfg)
+    alexnet = instantiate(alexnet_cfg)
+    print(alexnet)
