@@ -1,10 +1,10 @@
 import lightning as L
 import torch
+from hydra.utils import instantiate
 from torch import nn
 from torchmetrics.classification import Accuracy
 
 from ..config import TrainConfig
-from ..config.factory import build_lr_scheduler, build_optimizer
 
 
 class LitClassfier(L.LightningModule):
@@ -63,12 +63,8 @@ class LitClassfier(L.LightningModule):
         self.log("test_acc", self.test_acc, prog_bar=True)
 
     def configure_optimizers(self):
-        optimizer = build_optimizer(self.exp_cfg.train.optimizer)
-        lr_scheduler = (
-            None
-            if self.exp_cfg.train.lr_scheduler
-            else build_lr_scheduler(self.exp_cfg.train.lr_scheduler)
-        )
+        optimizer = instantiate(self.train_cfg.optimizer)
+        lr_scheduler = instantiate(self.train_cfg.lr_scheduler)
 
         if lr_scheduler is None:
             return optimizer

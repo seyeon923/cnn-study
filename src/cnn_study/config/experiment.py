@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 
-from .component import ComponentConfig
+from omegaconf import DictConfig
+
 from .train import TrainConfig
 
 
 @dataclass(frozen=True, slots=True)
 class ExperimentConfig:
-    model: ComponentConfig
+    model: DictConfig
     train: TrainConfig
     seed: int = 42
