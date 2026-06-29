@@ -1,0 +1,5 @@
+_target_: cnn_study.training.LitClassifier
+
+defaults:
+  - /model: lenet5
+  - train_cfg: base_train_cfg
