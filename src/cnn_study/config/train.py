@@ -6,7 +6,6 @@ from omegaconf import DictConfig, OmegaConf
 @dataclass(slots=True)
 class TrainConfig:
     epochs: int = 100
-    batch_size: int = 32
     optimizer: DictConfig = field(
         default_factory=lambda: OmegaConf.create({"_target_": "torch.optim.AdamW"})
     )
