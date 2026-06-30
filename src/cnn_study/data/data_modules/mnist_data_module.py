@@ -1,0 +1,67 @@
+import lightning as L
+import torch
+from torch.utils.data import DataLoader, random_split
+from torchvision.datasets import MNIST
+from torchvision.transforms import Compose, Normalize, ToTensor
+
+from ...utils import calculate_mean_std
+
+
+class MNISTDataModule(L.LightningDataModule):
+    def __init__(self, data_dir: str, batch_size: int = 32, do_normalize: bool = True):
+        super().__init__()
+
+        self.data_dir = data_dir
+        self.batch_size = batch_size
+        self.do_normalize = do_normalize
+        self.mean = None
+        self.std = None
+
+    def prepare_data(self):
+        # download
+        MNIST(self.data_dir, train=True, download=True)
+        MNIST(self.data_dir, train=False, download=True)
+
+        if self.do_normalize:
+            loader = DataLoader(
+                MNIST(self.data_dir, train=True, transform=ToTensor()), self.batch_size
+            )
+            self.mean, self.std = calculate_mean_std(map(lambda x: x[0], loader))
+
+    def setup(self, stage: str):
+        if self.do_normalize:
+            self.transform = Compose([ToTensor(), Normalize(self.mean, self.std)])
+        else:
+            self.transform = ToTensor()
+
+        test_full = MNIST(self.data_dir, train=False, transform=self.transform)
+        self.mnist_val, self.mnist_test = random_split(
+            test_full, [0.5, 0.5], generator=torch.Generator().manual_seed(42)
+        )
+
+        # Assign train/val datasets for use in dataloaders
+        if stage == "fit":
+            self.mnist_train = MNIST(
+                self.data_dir, train=True, transform=self.transform
+            )
+
+        # Assign test dataset for use in dataloader(s)
+        if stage == "test":
+            self.mnist_test = MNIST(
+                self.data_dir, train=False, transform=self.transform
+            )
+
+        if stage == "predict":
+            self.mnist_predict = self.mnist_test
+
+    def train_dataloader(self):
+        return DataLoader(self.mnist_train, batch_size=self.batch_size)
+
+    def val_dataloader(self):
+        return DataLoader(self.mnist_val, batch_size=self.batch_size)
+
+    def test_dataloader(self):
+        return DataLoader(self.mnist_test, batch_size=self.batch_size)
+
+    def predict_dataloader(self):
+        return DataLoader(self.mnist_predict, batch_size=self.batch_size)
