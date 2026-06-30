@@ -1,0 +1,2 @@
+run:
+  dir: ${output_dir}/${experiment_name}/${now:%Y-%m-%d_%H-%M-%S}

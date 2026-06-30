@@ -9,3 +9,6 @@ class Config:
     lightning_module: DictConfig = field(default_factory=OmegaConf.create)
     data: DictConfig = field(default_factory=OmegaConf.create)
     trainer: DictConfig = field(default_factory=OmegaConf.create)
+
+    output_dir: str = "outputs"
+    experiment_name: str = "exp"
