@@ -3,7 +3,7 @@ _target_: lightning.pytorch.trainer.trainer.Trainer
 defaults:
   - /logger: tensorboard
 
-max_epochs: 100
+max_epochs: 30
 accelerator: auto
 devices: auto
 precision: 16-mixed
