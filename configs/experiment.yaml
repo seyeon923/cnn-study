@@ -1,4 +1,0 @@
-defaults:
-  - base_experiment
-  - lightning_module: classifier
-  - data_module: mnist_data_module

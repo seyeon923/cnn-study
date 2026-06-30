@@ -1,19 +1,19 @@
 import lightning as L
 import torch
-from hydra.utils import instantiate
 from torch import nn
 from torchmetrics.classification import Accuracy
 
-from ..config import TrainConfig
 
-
-class LitClassfier(L.LightningModule):
-    def __init__(self, model: nn.Module, train_cfg: TrainConfig):
+class LitClassifier(L.LightningModule):
+    def __init__(
+        self, model: nn.Module, optimizer=torch.optim.AdamW, lr_scheduler=None
+    ):
         super().__init__()
 
-        self.train_cfg = train_cfg
-
         self.model = model
+        self.optimizer = optimizer
+        self.lr_scheduler = lr_scheduler
+
         self.criterion = nn.CrossEntropyLoss()
 
         self.num_classes = getattr(model, "output_classes")
@@ -63,14 +63,8 @@ class LitClassfier(L.LightningModule):
         self.log("test_acc", self.test_acc, prog_bar=True)
 
     def configure_optimizers(self):
-        optimizer = instantiate(self.train_cfg.optimizer, self.model.parameters())
-        lr_scheduler = (
-            instantiate(
-                self.train_cfg.lr_scheduler, optimizer, last_epoch=self.train_cfg.epochs
-            )
-            if self.train_cfg.lr_scheduler
-            else None
-        )
+        optimizer = self.optimizer(self.model.parameters())
+        lr_scheduler = self.lr_scheduler(optimizer) if self.lr_scheduler else None
 
         if lr_scheduler is None:
             return optimizer

@@ -24,6 +24,7 @@ dependencies = [
   "dacite",
   "matplotlib>=3.10.9",
   "hydra-core>=1.3.3",
+  "tensorboard>=2.21.0",
 ]
 
 [project.optional-dependencies]

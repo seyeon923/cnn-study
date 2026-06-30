@@ -1,17 +1,17 @@
 import hydra
-from hydra.core.config_store import ConfigStore
-from omegaconf import OmegaConf
+import lightning as L
+from hydra.utils import instantiate
 
-from cnn_study.config import ExperimentConfig, TrainConfig
-
-cs = ConfigStore.instance()
-cs.store(name="base_experiment", node=ExperimentConfig)
-cs.store(group="lightning_module/train_cfg", name="base_train_cfg", node=TrainConfig)
+from cnn_study.config import Config
 
 
-@hydra.main(version_base=None, config_path="../configs", config_name="experiment")
-def train(cfg: ExperimentConfig):
-    print(OmegaConf.to_yaml(cfg))
+@hydra.main(version_base=None, config_path="../configs", config_name="config")
+def train(cfg: Config):
+    model: L.LightningModule = instantiate(cfg.lightning_module)
+    datamodule: L.LightningDataModule = instantiate(cfg.data)
+    trainer: L.Trainer = instantiate(cfg.trainer)
+
+    trainer.fit(model, datamodule=datamodule)
 
 
 if __name__ == "__main__":
