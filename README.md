@@ -9,7 +9,6 @@ Study and implementation of CNN architectures (LeNet, AlexNet, VGG, ResNet, Mobi
 
 ![LeNet-5 Architecture](./doc/images/lenet_architecture.png)
 
-
 - One of the earliest successful Convolutional Neural Network (CNN) architectures
 
 - Motivation:
@@ -24,14 +23,14 @@ Study and implementation of CNN architectures (LeNet, AlexNet, VGG, ResNet, Mobi
   - Demonstrated strong performance on handwritten digit recognition (MNIST)
   - Foundation of modern CNN architectures
 
+- Impelmentation: [cnn_study.models.lenet.LeNet5](./src/cnn_study/models/lenet.py)
 
-
-> The implementation is slightly adapted to a more modern architecture.
-> 
-> - S2 -> C3 feature map fully connected
-> - Trainable Pooling => Fixed Pooling
-> - tanh activation => ReLU activation
-> - Optional batch normalization
+  > The implementation is slightly adapted to a more modern architecture.
+  > 
+  > - S2 -> C3 feature map fully connected
+  > - Trainable Pooling => Fixed Pooling
+  > - tanh activation => ReLU activation
+  > - Optional batch normalization
 
 ## AlexNet
 
@@ -59,8 +58,8 @@ Study and implementation of CNN architectures (LeNet, AlexNet, VGG, ResNet, Mobi
   - Large convolution kernel and stride in early layers (11x11, stride 4)
   - Large fully connected layers (dominant parameter count)
 
-
-> The implementation is slightly adapted to a more modern architecture.
-> 
-> - Full connected CNN connection(for single GPU)
-> - Remove LRN(instead use optional batch normalization)
+- Implementation: [cnn_study.models.alexnet.AlexNet](./src/cnn_study/models/alexnet.py)
+  > The implementation is slightly adapted to a more modern architecture.
+  > 
+  > - Full connected CNN connection(for single GPU)
+  > - Remove LRN(instead use optional batch normalization)
