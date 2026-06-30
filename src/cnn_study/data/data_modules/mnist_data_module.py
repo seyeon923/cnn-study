@@ -8,12 +8,19 @@ from ...utils import calculate_mean_std
 
 
 class MNISTDataModule(L.LightningDataModule):
-    def __init__(self, data_dir: str, batch_size: int = 32, do_normalize: bool = True):
+    def __init__(
+        self,
+        data_dir: str,
+        batch_size: int = 32,
+        do_normalize: bool = True,
+        num_workers: int = 4,
+    ):
         super().__init__()
 
         self.data_dir = data_dir
         self.batch_size = batch_size
         self.do_normalize = do_normalize
+        self.num_workers = num_workers
         self.mean = None
         self.std = None
 
@@ -55,13 +62,36 @@ class MNISTDataModule(L.LightningDataModule):
             self.mnist_predict = self.mnist_test
 
     def train_dataloader(self):
-        return DataLoader(self.mnist_train, batch_size=self.batch_size)
+        return DataLoader(
+            self.mnist_train,
+            batch_size=self.batch_size,
+            pin_memory=True,
+            shuffle=True,
+            num_workers=self.num_workers,
+            persistent_workers=True if self.num_workers > 0 else False,
+        )
 
     def val_dataloader(self):
-        return DataLoader(self.mnist_val, batch_size=self.batch_size)
+        return DataLoader(
+            self.mnist_val,
+            batch_size=self.batch_size,
+            pin_memory=True,
+            num_workers=self.num_workers,
+            persistent_workers=True if self.num_workers > 0 else False,
+        )
 
     def test_dataloader(self):
-        return DataLoader(self.mnist_test, batch_size=self.batch_size)
+        return DataLoader(
+            self.mnist_test,
+            batch_size=self.batch_size,
+            pin_memory=True,
+            num_workers=self.num_workers,
+        )
 
     def predict_dataloader(self):
-        return DataLoader(self.mnist_predict, batch_size=self.batch_size)
+        return DataLoader(
+            self.mnist_predict,
+            batch_size=self.batch_size,
+            pin_memory=True,
+            num_workers=self.num_workers,
+        )
