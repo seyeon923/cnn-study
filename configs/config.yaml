@@ -4,6 +4,7 @@ defaults:
   - lightning_module: classifier
   - data: mnist
   - trainer: default
+  - _self_
 
 output_dir: outputs
 experiment_name: "exp"
