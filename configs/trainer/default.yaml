@@ -6,7 +6,7 @@ defaults:
 max_epochs: 30
 accelerator: auto
 devices: auto
-precision: 16-mixed
+precision: bf16-mixed
 gradient_clip_val: true
 enable_progress_bar: true
 callbacks:
