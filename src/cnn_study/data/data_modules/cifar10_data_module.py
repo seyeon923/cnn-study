@@ -1,13 +1,17 @@
 import lightning as L
 import torch
 from torch.utils.data import DataLoader, random_split
-from torchvision.datasets import MNIST
+from torchvision.datasets import CIFAR10
 from torchvision.transforms import Compose, Normalize, ToTensor
 
 from ...utils import calculate_mean_std
 
+CIFAR10_URL = (
+    "https://storage.googleapis.com/dsp-cellarium-cas-public/test-data/cifar-10-python.tar.gz"
+)
 
-class MNISTDataModule(L.LightningDataModule):
+
+class CIFAR10DataModule(L.LightningDataModule):
     def __init__(
         self,
         data_dir: str,
@@ -19,19 +23,20 @@ class MNISTDataModule(L.LightningDataModule):
 
         self.data_dir = data_dir
         self.batch_size = batch_size
-        self.do_normalize = do_normalize
         self.num_workers = num_workers
+        self.do_normalize = do_normalize
+
         self.mean = None
         self.std = None
 
     def prepare_data(self):
-        # download
-        MNIST(self.data_dir, train=True, download=True)
-        MNIST(self.data_dir, train=False, download=True)
+        CIFAR10.url = CIFAR10_URL
+        CIFAR10(self.data_dir, train=True, download=True)
+        CIFAR10(self.data_dir, train=False, download=True)
 
         if self.do_normalize:
             loader = DataLoader(
-                MNIST(self.data_dir, train=True, transform=ToTensor()), self.batch_size
+                CIFAR10(self.data_dir, train=True, transform=ToTensor()), self.batch_size
             )
             self.mean, self.std = calculate_mean_std(map(lambda x: x[0], loader))
 
@@ -41,14 +46,17 @@ class MNISTDataModule(L.LightningDataModule):
         else:
             self.transform = ToTensor()
 
-        test_full = MNIST(self.data_dir, train=False, transform=self.transform)
+        test_full = CIFAR10(self.data_dir, train=False, transform=self.transform)
         self.val_ds, self.test_ds = random_split(
             test_full, [0.5, 0.5], generator=torch.Generator().manual_seed(42)
         )
 
+        self.classes = test_full.classes
+        self.class_to_idx = test_full.class_to_idx
+
         # Assign train/val datasets for use in dataloaders
         if stage == "fit":
-            self.train_ds = MNIST(self.data_dir, train=True, transform=self.transform)
+            self.train_ds = CIFAR10(self.data_dir, train=True, transform=self.transform)
 
     def train_dataloader(self):
         return DataLoader(
@@ -84,3 +92,13 @@ class MNISTDataModule(L.LightningDataModule):
             pin_memory=True,
             num_workers=self.num_workers,
         )
+
+
+if __name__ == "__main__":
+    data = CIFAR10DataModule("./data")
+    data.prepare_data()
+    data.setup("fit")
+
+    print(data.classes)
+    print(data.class_to_idx)
+    print(data.mean, data.std)

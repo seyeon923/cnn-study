@@ -2,5 +2,5 @@ _target_: cnn_study.data.data_modules.mnist_data_module.MNISTDataModule
 
 data_dir: ./data
 batch_size: 32
-do_normalize: true
 num_workers: 4
+do_normalize: true
