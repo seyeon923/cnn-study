@@ -50,17 +50,22 @@ class CIFAR10DataModule(L.LightningDataModule):
             self.mean, self.std = calculate_mean_std(map(lambda x: x[0], loader))
 
     def setup(self, stage: str):
-        transforms = [ToTensor()]
+        train_transforms = [ToTensor()]
+        val_transforms = [ToTensor()]
 
         if self.normalize:
-            transforms.append(Normalize(self.mean, self.std))
+            train_transforms.append(Normalize(self.mean, self.std))
+            val_transforms.append(Normalize(self.mena, self.std))
 
         if self.augmentation:
-            transforms.extend([RandomHorizontalFlip(), RandomVerticalFlip(), RandomGrayscale()])
+            train_transforms.extend(
+                [RandomHorizontalFlip(), RandomVerticalFlip(), RandomGrayscale()]
+            )
 
-        self.transform = Compose(transforms)
+        self.train_transform = Compose(train_transforms)
+        self.val_transform = Compose(val_transforms)
 
-        test_full = CIFAR10(self.data_dir, train=False, transform=self.transform)
+        test_full = CIFAR10(self.data_dir, train=False, transform=self.val_transform)
         self.val_ds, self.test_ds = random_split(
             test_full, [0.5, 0.5], generator=torch.Generator().manual_seed(42)
         )
@@ -70,7 +75,7 @@ class CIFAR10DataModule(L.LightningDataModule):
 
         # Assign train/val datasets for use in dataloaders
         if stage == "fit":
-            self.train_ds = CIFAR10(self.data_dir, train=True, transform=self.transform)
+            self.train_ds = CIFAR10(self.data_dir, train=True, transform=self.train_transform)
 
     def train_dataloader(self):
         return DataLoader(
