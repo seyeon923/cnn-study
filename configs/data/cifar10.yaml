@@ -3,4 +3,4 @@ _target_: cnn_study.data.data_modules.cifar10.CIFAR10DataModule
 data_dir: ./data
 batch_size: 32
 num_workers: 4
-do_normalize: true
+normalize: true

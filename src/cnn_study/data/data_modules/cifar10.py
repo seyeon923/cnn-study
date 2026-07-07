@@ -17,14 +17,14 @@ class CIFAR10DataModule(L.LightningDataModule):
         data_dir: str,
         batch_size: int = 32,
         num_workers: int = 4,
-        do_normalize: bool = True,
+        normalize: bool = True,
     ):
         super().__init__()
 
         self.data_dir = data_dir
         self.batch_size = batch_size
         self.num_workers = num_workers
-        self.do_normalize = do_normalize
+        self.normalize = normalize
 
         self.mean = None
         self.std = None
@@ -34,14 +34,14 @@ class CIFAR10DataModule(L.LightningDataModule):
         CIFAR10(self.data_dir, train=True, download=True)
         CIFAR10(self.data_dir, train=False, download=True)
 
-        if self.do_normalize:
+        if self.normalize:
             loader = DataLoader(
                 CIFAR10(self.data_dir, train=True, transform=ToTensor()), self.batch_size
             )
             self.mean, self.std = calculate_mean_std(map(lambda x: x[0], loader))
 
     def setup(self, stage: str):
-        if self.do_normalize:
+        if self.normalize:
             self.transform = Compose([ToTensor(), Normalize(self.mean, self.std)])
         else:
             self.transform = ToTensor()
