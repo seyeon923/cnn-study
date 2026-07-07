@@ -55,7 +55,7 @@ class CIFAR10DataModule(L.LightningDataModule):
 
         if self.normalize:
             train_transforms.append(Normalize(self.mean, self.std))
-            val_transforms.append(Normalize(self.mena, self.std))
+            val_transforms.append(Normalize(self.mean, self.std))
 
         if self.augmentation:
             train_transforms.extend(
