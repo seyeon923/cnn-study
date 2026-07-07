@@ -1,4 +1,4 @@
-_target_: cnn_study.data.data_modules.mnist_data_module.MNISTDataModule
+_target_: cnn_study.data.data_modules.mnist.MNISTDataModule
 
 data_dir: ./data
 batch_size: 32
