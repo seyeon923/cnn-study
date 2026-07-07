@@ -2,7 +2,14 @@ import lightning as L
 import torch
 from torch.utils.data import DataLoader, random_split
 from torchvision.datasets import CIFAR10
-from torchvision.transforms import Compose, Normalize, ToTensor
+from torchvision.transforms import (
+    Compose,
+    Normalize,
+    RandomGrayscale,
+    RandomHorizontalFlip,
+    RandomVerticalFlip,
+    ToTensor,
+)
 
 from ...utils import calculate_mean_std
 
@@ -18,6 +25,7 @@ class CIFAR10DataModule(L.LightningDataModule):
         batch_size: int = 32,
         num_workers: int = 4,
         normalize: bool = True,
+        augmentation: bool = False,
     ):
         super().__init__()
 
@@ -25,6 +33,7 @@ class CIFAR10DataModule(L.LightningDataModule):
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.normalize = normalize
+        self.augmentation = augmentation
 
         self.mean = None
         self.std = None
@@ -41,10 +50,15 @@ class CIFAR10DataModule(L.LightningDataModule):
             self.mean, self.std = calculate_mean_std(map(lambda x: x[0], loader))
 
     def setup(self, stage: str):
+        transforms = [ToTensor()]
+
         if self.normalize:
-            self.transform = Compose([ToTensor(), Normalize(self.mean, self.std)])
-        else:
-            self.transform = ToTensor()
+            transforms.append(Normalize(self.mean, self.std))
+
+        if self.augmentation:
+            transforms.extend([RandomHorizontalFlip(), RandomVerticalFlip(), RandomGrayscale()])
+
+        self.transform = Compose(transforms)
 
         test_full = CIFAR10(self.data_dir, train=False, transform=self.transform)
         self.val_ds, self.test_ds = random_split(
