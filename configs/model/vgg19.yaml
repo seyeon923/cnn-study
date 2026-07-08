@@ -1,0 +1,6 @@
+_target_: cnn_study.models.vgg.VGG19
+
+input_channels: 3
+output_classes: 1000
+use_bn: false
+classifier_type: vgg_dense
