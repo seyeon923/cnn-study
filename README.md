@@ -87,6 +87,8 @@ Study and implementation of CNN architectures (LeNet, AlexNet, VGG, ResNet, Mobi
 
 - Explored 1×1 convolutions as additional nonlinear transformations
 
+- Showed no improvement by using LRN introduced from AlexNet
+
 - Introduced multi-scale training(kind of augmentation) and advanced test-time evaluation:
   - Dense evaluation
   - Multi-crop evaluation
