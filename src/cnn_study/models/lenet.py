@@ -30,14 +30,14 @@ class LeNet5(nn.Module):
         layers = []
 
         # Conv block 1
-        layers.append(nn.Conv2d(input_channels, 6, kernel_size=5))
+        layers.append(nn.Conv2d(input_channels, 6, kernel_size=5, bias=not use_bn))
         if use_bn:
             layers.append(nn.BatchNorm2d(6))
         layers.append(self._make_activation())
         layers.append(self._make_pool())
 
         # Conv block 2
-        layers.append(nn.Conv2d(6, 16, kernel_size=5))
+        layers.append(nn.Conv2d(6, 16, kernel_size=5, bias=not use_bn))
         if use_bn:
             layers.append(nn.BatchNorm2d(16))
         layers.append(self._make_activation())
