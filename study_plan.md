@@ -24,9 +24,9 @@
 - [x] 논문 초록 및 Introduction 확인
 - [x] 모델 구조 정리
 - [x] Modernized LeNet 구현
-- [ ] CIFAR10 학습 실험
+- [x] CIFAR10 학습 실험
 - [x] Activation 별 비교 (ReLU / Tanh / Sigmoid)
-- [ ] Pooling 별 비교 (AvgPool / MaxPool)
+- [x] Pooling 별 비교 (AvgPool / MaxPool)
 - [ ] BatchNorm 유무 비교
 
 ### 확인할 것
@@ -49,6 +49,7 @@
 - [x] Modernized AlexNet 구현
 - [ ] CIFAR10 또는 TinyImageNet 학습
 - [ ] LeNet 대비 성능 비교
+- [ ] Final layer dropout 추가 성능 비교
 
 ### 확인할 것
 
@@ -65,9 +66,9 @@
 
 ### 학습
 
-- [ ] 논문 읽기
-- [ ] VGG11 구현
+- [x] 논문 읽기
 - [ ] VGG16 구현
+- [ ] VGG19 구현
 - [ ] AlexNet 비교
 
 ### 확인할 것

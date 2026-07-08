@@ -97,3 +97,6 @@ Study and implementation of CNN architectures (LeNet, AlexNet, VGG, ResNet, Mobi
 - Large fully connected classifier remained a major portion of model parameters
 
 - Later architectures (e.g. ResNet) addressed optimization difficulties when scaling to much deeper networks
+
+
+- Implementation: [cnn_study.models.vgg.VGG16/VGG19](./src/cnn_study/models/vgg.py)
