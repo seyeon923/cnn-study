@@ -34,10 +34,6 @@
 - [x] Local Receptive Field
 - [x] Weight Sharing
 - [x] CNN 등장 배경 이해
-- [ ] Accuracy
-- [ ] FLOPs
-- [ ] Params
-- [ ] Latency
 
 ---
 
@@ -67,15 +63,14 @@
 ### 학습
 
 - [x] 논문 읽기
-- [ ] VGG16 구현
-- [ ] VGG19 구현
+- [x] VGG16 구현
+- [x] VGG19 구현
 - [ ] AlexNet 비교
 
 ### 확인할 것
 
-- [ ] 작은 Kernel (3×3) 반복 사용
-- [ ] Deep CNN 효과
-- [ ] Parameter 증가 문제
+- [x] 작은 Kernel (3×3) 반복 사용
+- [x] Deep CNN 효과
 
 ---
 

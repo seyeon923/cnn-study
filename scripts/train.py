@@ -11,12 +11,13 @@ from cnn_study.config import Config
 
 @hydra.main(version_base=None, config_path="../configs", config_name="config")
 def train(cfg: Config):
-    model: L.LightningModule = instantiate(cfg.lightning_module)
-    datamodule: L.LightningDataModule = instantiate(cfg.data)
 
     best_scores: dict[str, list[float]] = {}
     for i in range(cfg.train_repeats):
         print(f"Start {ordinal.ordinal(i + 1)} training")
+
+        model: L.LightningModule = instantiate(cfg.lightning_module)
+        datamodule: L.LightningDataModule = instantiate(cfg.data)
         trainer: L.Trainer = instantiate(cfg.trainer)
 
         trainer.fit(model, datamodule=datamodule)
