@@ -53,7 +53,7 @@ class LeNet5(nn.Module):
             output_classes,
             hidden_features=[120, 84],
             num_hidden_layers=2,
-            expected_feature_size=5,
+            expected_feature_size=4,  # 4 x 4 for 28 x 28 input
             classifier_type=classifier_type,
             activation=activation,
         )
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         use_bn=True,
     )
 
-    for size in [32, 36, 48, 64]:
+    for size in [28, 32, 36, 48, 64]:
         x = torch.randn(4, 3, size, size)
         y = model(x)
 
