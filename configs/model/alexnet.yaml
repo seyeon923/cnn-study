@@ -3,3 +3,4 @@ _target_: cnn_study.models.alexnet.AlexNet
 input_channels: 3
 output_classes: 1000
 use_bn: false # set to apply batch normalization
+classifier_type: conv_dense

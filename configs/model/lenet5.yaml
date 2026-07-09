@@ -5,3 +5,4 @@ output_classes: 10
 activation: relu # relu, sigmoid, or tanh
 pooling: avg # avg or max
 use_bn: false # set to batch normalization
+classifier_type: conv_dense
