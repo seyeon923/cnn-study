@@ -1,6 +1,8 @@
 import torch
 from torch import nn
 
+from .classifier import Classifier
+
 
 class ConvBlock(nn.Module):
     def __init__(self, in_channels: int, out_channels: int, use_bn: bool = False):
@@ -38,75 +40,13 @@ class ConvBlockLayers(nn.Module):
         return self.conv_block_layers(x)
 
 
-class Classifier(nn.Module):
-    def __init__(
-        self,
-        in_features: int,
-        output_classes: int,
-        hidden_features: int = 4096,
-        num_hidden_layers: int = 2,
-        expected_feature_size: int | tuple[int, int] = (7, 7),
-        classifier_type: str = "vgg_dense",
-    ):
-        super().__init__()
-
-        classifier_type = classifier_type.lower()
-        if classifier_type == "vgg_dense":
-            assert num_hidden_layers >= 1
-
-            layers = []
-
-            layers.append(nn.Conv2d(in_features, hidden_features, expected_feature_size))
-            layers.append(nn.ReLU(inplace=True))
-            layers.append(nn.Dropout(p=0.5))
-
-            for _ in range(num_hidden_layers - 1):
-                layers.append(nn.Conv2d(hidden_features, hidden_features, 1))
-                layers.append(nn.ReLU(inplace=True))
-                layers.append(nn.Dropout(p=0.5))
-
-            layers.append(nn.Conv2d(hidden_features, output_classes, 1))
-
-            layers.append(nn.AdaptiveAvgPool2d(1))
-            layers.append(nn.Flatten())
-
-            self.classifier = nn.Sequential(*layers)
-        elif classifier_type == "gap_mlp":
-            layers = []
-
-            layers.append(nn.AdaptiveAvgPool2d(1))
-            layers.append(nn.Flatten())
-
-            for _ in range(num_hidden_layers):
-                layers.append(nn.Linear(in_features, hidden_features))
-                layers.append(nn.ReLU(inplace=True))
-                layers.append(nn.Dropout(p=0.5))
-
-                in_features = hidden_features
-
-            layers.append(nn.Linear(in_features, output_classes))
-
-            self.classifier = nn.Sequential(*layers)
-        elif classifier_type == "gap_linear":
-            self.classifier = nn.Sequential(
-                nn.AdaptiveAvgPool2d(1), nn.Flatten(), nn.Linear(in_features, output_classes)
-            )
-        else:
-            raise ValueError(
-                f"Invalid classifier_type '{classifier_type}', should be one of 'vgg_dense', 'gap_mlp', or 'gap_linear'",
-            )
-
-    def forward(self, x: torch.Tensor):
-        return self.classifier(x)
-
-
 class VGG16(nn.Module):
     def __init__(
         self,
         input_channels: int = 3,
         output_classes: int = 1000,
         use_bn: bool = False,
-        classifier_type: str = "vgg_dense",
+        classifier_type: str = "conv_dense",
     ):
         super().__init__()
 
@@ -142,7 +82,7 @@ class VGG19(nn.Module):
         input_channels: int = 3,
         output_classes: int = 1000,
         use_bn: bool = False,
-        classifier_type: str = "vgg_dense",
+        classifier_type: str = "conv_dense",
     ):
         super().__init__()
 
@@ -173,7 +113,7 @@ class VGG19(nn.Module):
 
 
 if __name__ == "__main__":
-    classifier_types = ["vgg_dense", "gap_mlp", "gap_linear"]
+    classifier_types = ["conv_dense", "gap_mlp", "gap_linear"]
 
     for classifier_type in classifier_types:
         output_classes = 100
@@ -213,4 +153,5 @@ if __name__ == "__main__":
 
         print(f"Input: {x.shape}")
         print(f"Output: {y.shape}")
+        print()
         print()
