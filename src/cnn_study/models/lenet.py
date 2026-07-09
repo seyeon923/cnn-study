@@ -1,6 +1,8 @@
 import torch
 from torch import nn
 
+from .classifier import Classifier, make_activation
+
 
 class LeNet5(nn.Module):
     """Modernized LeNet with flexible input size.
@@ -18,6 +20,7 @@ class LeNet5(nn.Module):
         activation: str = "relu",
         pooling: str = "avg",
         use_bn: bool = False,
+        classifier_type: str = "conv_dense",
     ):
         super().__init__()
 
@@ -33,38 +36,27 @@ class LeNet5(nn.Module):
         layers.append(nn.Conv2d(input_channels, 6, kernel_size=5, bias=not use_bn))
         if use_bn:
             layers.append(nn.BatchNorm2d(6))
-        layers.append(self._make_activation())
+        layers.append(make_activation(activation))
         layers.append(self._make_pool())
 
         # Conv block 2
         layers.append(nn.Conv2d(6, 16, kernel_size=5, bias=not use_bn))
         if use_bn:
             layers.append(nn.BatchNorm2d(16))
-        layers.append(self._make_activation())
+        layers.append(make_activation(activation))
         layers.append(self._make_pool())
 
         self.features = nn.Sequential(*layers)
 
-        # Make classifier input shape fixed regardless of input image size
-        self.adaptive_pool = nn.AdaptiveAvgPool2d((5, 5))
-
-        self.classifier = nn.Sequential(
-            nn.Linear(16 * 5 * 5, 120),
-            self._make_activation(),
-            nn.Linear(120, 84),
-            self._make_activation(),
-            nn.Linear(84, output_classes),
+        self.classifier = Classifier(
+            16,
+            output_classes,
+            hidden_features=[120, 84],
+            num_hidden_layers=2,
+            expected_feature_size=5,
+            classifier_type=classifier_type,
+            activation=activation,
         )
-
-    def _make_activation(self) -> nn.Module:
-        if self.activation_name == "relu":
-            return nn.ReLU(inplace=True)
-        elif self.activation_name == "tanh":
-            return nn.Tanh()
-        elif self.activation_name == "sigmoid":
-            return nn.Sigmoid()
-        else:
-            raise ValueError(f"Not supported activation: {self.activation_name}")
 
     def _make_pool(self) -> nn.Module:
         if self.pooling_name == "avg":
@@ -76,11 +68,6 @@ class LeNet5(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = self.features(x)
-
-        # Fix spatial size to 5x5 regardless of input resolution
-        x = self.adaptive_pool(x)
-
-        x = torch.flatten(x, 1)
         return self.classifier(x)
 
 

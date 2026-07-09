@@ -1,6 +1,8 @@
 import torch
 from torch import nn
 
+from .classifier import Classifier
+
 
 class AlexNet(nn.Module):
     """Modernized AlexNet with flexible input size via adaptive pooling."""
@@ -10,6 +12,7 @@ class AlexNet(nn.Module):
         input_channels: int = 3,
         output_classes: int = 1000,
         use_bn: bool = False,
+        classifier_type: str = "conv_dense",
     ):
         super().__init__()
 
@@ -53,22 +56,18 @@ class AlexNet(nn.Module):
         layers.append(nn.MaxPool2d(kernel_size=3, stride=2))
 
         self.features = nn.Sequential(*layers)
-        self.avgpool = nn.AdaptiveAvgPool2d((6, 6))
 
-        self.classifier = nn.Sequential(
-            nn.Linear(256 * 6 * 6, 4096),
-            nn.ReLU(inplace=True),
-            nn.Dropout(p=0.5),
-            nn.Linear(4096, 4096),
-            nn.ReLU(inplace=True),
-            nn.Dropout(p=0.5),
-            nn.Linear(4096, output_classes),
+        self.classifier = Classifier(
+            256,
+            output_classes,
+            hidden_features=4096,
+            num_hidden_layers=2,
+            expected_feature_size=6,
+            classifier_type=classifier_type,
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = self.features(x)
-        x = self.avgpool(x)
-        x = torch.flatten(x, 1)
         return self.classifier(x)
 
 
