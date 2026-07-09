@@ -12,3 +12,4 @@ class Config:
 
     output_dir: str = "outputs"
     experiment_name: str = "exp"
+    train_repeats: int = 1

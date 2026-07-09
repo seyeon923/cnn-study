@@ -8,3 +8,4 @@ defaults:
 
 output_dir: outputs
 experiment_name: "exp"
+train_repeats: 1
