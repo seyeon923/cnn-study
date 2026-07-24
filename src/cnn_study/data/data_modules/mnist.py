@@ -57,7 +57,7 @@ class MNISTDataModule(L.LightningDataModule):
             pin_memory=True,
             shuffle=True,
             num_workers=self.num_workers,
-            persistent_workers=True if self.num_workers > 0 else False,
+            persistent_workers=self.num_workers > 0,
         )
 
     def val_dataloader(self):
@@ -66,7 +66,7 @@ class MNISTDataModule(L.LightningDataModule):
             batch_size=self.batch_size,
             pin_memory=True,
             num_workers=self.num_workers,
-            persistent_workers=True if self.num_workers > 0 else False,
+            persistent_workers=self.num_workers > 0,
         )
 
     def test_dataloader(self):
