@@ -33,7 +33,7 @@ class MNISTDataModule(L.LightningDataModule):
             loader = DataLoader(
                 MNIST(self.data_dir, train=True, transform=ToTensor()), self.batch_size
             )
-            self.mean, self.std = calculate_mean_std(map(lambda x: x[0], loader))
+            self.mean, self.std = calculate_mean_std(x[0] for x in loader)
 
     def setup(self, stage: str):
         if self.normalize:
