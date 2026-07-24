@@ -7,7 +7,7 @@ name = "cnn-study"
 version = "0.1.0"
 description = "Study and implementation of classical to modern CNN architectures with experiments and benchmarks."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.14"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [
