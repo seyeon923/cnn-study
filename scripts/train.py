@@ -16,7 +16,7 @@ def train(cfg: Config):
     for i in range(cfg.train_repeats):
         print(f"Start {ordinal.ordinal(i + 1)} training")
 
-        model: L.LightningModule = instantiate(cfg.lightning_module)
+        model: L.LightningModule = instantiate(cfg.training_module)
         datamodule: L.LightningDataModule = instantiate(cfg.data)
         trainer: L.Trainer = instantiate(cfg.trainer)
 

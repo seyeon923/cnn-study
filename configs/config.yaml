@@ -1,7 +1,7 @@
 defaults:
   - hydra: default
   - model: lenet5
-  - lightning_module: classifier
+  - training_module: classifier
   - data: mnist
   - trainer: default
   - _self_

@@ -4,7 +4,7 @@ from torch import nn
 from torchmetrics.classification import Accuracy
 
 
-class LitClassifier(L.LightningModule):
+class Classifier(L.LightningModule):
     def __init__(
         self, model: nn.Module, num_classes: int, optimizer=torch.optim.AdamW, lr_scheduler=None
     ):

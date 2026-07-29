@@ -1,4 +1,4 @@
-_target_: cnn_study.training.classifier.LitClassifier
+_target_: cnn_study.training.classifier.Classifier
 
 defaults:
   - /optimizer: adamw
