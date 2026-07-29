@@ -6,7 +6,7 @@ from torchmetrics.classification import Accuracy
 
 class LitClassifier(L.LightningModule):
     def __init__(
-        self, model: nn.Module, optimizer=torch.optim.AdamW, lr_scheduler=None
+        self, model: nn.Module, num_classes: int, optimizer=torch.optim.AdamW, lr_scheduler=None
     ):
         super().__init__()
 
@@ -16,11 +16,9 @@ class LitClassifier(L.LightningModule):
 
         self.criterion = nn.CrossEntropyLoss()
 
-        self.num_classes = getattr(model, "output_classes")
-
-        self.train_acc = Accuracy(task="multiclass", num_classes=self.num_classes)
-        self.val_acc = Accuracy(task="multiclass", num_classes=self.num_classes)
-        self.test_acc = Accuracy(task="multiclass", num_classes=self.num_classes)
+        self.train_acc = Accuracy(task="multiclass", num_classes=num_classes)
+        self.val_acc = Accuracy(task="multiclass", num_classes=num_classes)
+        self.test_acc = Accuracy(task="multiclass", num_classes=num_classes)
 
     def training_step(self, batch, batch_idx: int):
         del batch_idx
@@ -33,9 +31,7 @@ class LitClassifier(L.LightningModule):
         self.train_acc.update(pred, target)
 
         self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True)
-        self.log(
-            "train_acc", self.train_acc, on_step=False, on_epoch=True, prog_bar=True
-        )
+        self.log("train_acc", self.train_acc, on_step=False, on_epoch=True, prog_bar=True)
 
         return loss
 

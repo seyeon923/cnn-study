@@ -44,14 +44,13 @@ class VGG16(nn.Module):
     def __init__(
         self,
         input_channels: int = 3,
-        output_classes: int = 1000,
+        num_classes: int = 1000,
         use_bn: bool = False,
         classifier_type: str = "conv_dense",
     ):
         super().__init__()
 
         self.input_channels = input_channels
-        self.output_classes = output_classes
         self.classifier_type = classifier_type
 
         self.features = nn.Sequential(
@@ -64,7 +63,7 @@ class VGG16(nn.Module):
 
         self.classifier = Classifier(
             512,
-            output_classes,
+            num_classes,
             hidden_features=4096,
             num_hidden_layers=2,
             expected_feature_size=7,
@@ -80,14 +79,13 @@ class VGG19(nn.Module):
     def __init__(
         self,
         input_channels: int = 3,
-        output_classes: int = 1000,
+        num_classes: int = 1000,
         use_bn: bool = False,
         classifier_type: str = "conv_dense",
     ):
         super().__init__()
 
         self.input_channels = input_channels
-        self.output_classes = output_classes
         self.classifier_type = classifier_type
 
         self.features = nn.Sequential(
@@ -100,7 +98,7 @@ class VGG19(nn.Module):
 
         self.classifier = Classifier(
             512,
-            output_classes,
+            num_classes,
             hidden_features=4096,
             num_hidden_layers=2,
             expected_feature_size=7,
@@ -116,12 +114,12 @@ if __name__ == "__main__":
     classifier_types = ["conv_dense", "gap_mlp", "gap_linear"]
 
     for classifier_type in classifier_types:
-        output_classes = 100
-        vgg16 = VGG16(output_classes=output_classes, classifier_type=classifier_type)
+        num_classes = 100
+        vgg16 = VGG16(num_classes=num_classes, classifier_type=classifier_type)
         x = torch.randn(1, 3, 224, 224)
         y = vgg16(x)
 
-        assert y.shape == (1, output_classes)
+        assert y.shape == (1, num_classes)
 
         print(f"Input: {x.shape}")
         print(f"Output: {y.shape}")
@@ -130,17 +128,17 @@ if __name__ == "__main__":
         x = torch.randn(10, 3, 384, 384)
         y = vgg16(x)
 
-        assert y.shape == (10, output_classes)
+        assert y.shape == (10, num_classes)
 
         print(f"Input: {x.shape}")
         print(f"Output: {y.shape}")
         print()
 
-        vgg19 = VGG19(output_classes=output_classes, classifier_type=classifier_type)
+        vgg19 = VGG19(num_classes=num_classes, classifier_type=classifier_type)
         x = torch.randn(1, 3, 224, 224)
         y = vgg19(x)
 
-        assert y.shape == (1, output_classes)
+        assert y.shape == (1, num_classes)
 
         print(f"Input: {x.shape}")
         print(f"Output: {y.shape}")
@@ -149,7 +147,7 @@ if __name__ == "__main__":
         x = torch.randn(10, 3, 384, 384)
         y = vgg19(x)
 
-        assert y.shape == (10, output_classes)
+        assert y.shape == (10, num_classes)
 
         print(f"Input: {x.shape}")
         print(f"Output: {y.shape}")

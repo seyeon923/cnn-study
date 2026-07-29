@@ -16,7 +16,7 @@ class LeNet5(nn.Module):
     def __init__(
         self,
         input_channels: int = 1,
-        output_classes: int = 10,
+        num_classes: int = 10,
         activation: str = "relu",
         pooling: str = "avg",
         use_bn: bool = False,
@@ -25,7 +25,6 @@ class LeNet5(nn.Module):
         super().__init__()
 
         self.input_channels = input_channels
-        self.output_classes = output_classes
         self.activation_name = activation
         self.pooling_name = pooling
         self.use_bn = use_bn
@@ -50,7 +49,7 @@ class LeNet5(nn.Module):
 
         self.classifier = Classifier(
             16,
-            output_classes,
+            num_classes,
             hidden_features=[120, 84],
             num_hidden_layers=2,
             expected_feature_size=4,  # 4 x 4 for 28 x 28 input
@@ -76,7 +75,7 @@ if __name__ == "__main__":
 
     model = LeNet5(
         input_channels=3,
-        output_classes=10,
+        num_classes=10,
         activation="relu",
         pooling="avg",
         use_bn=True,

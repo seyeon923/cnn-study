@@ -5,3 +5,4 @@ defaults:
   - /lr_scheduler: none
 
 model: ${model}
+num_classes: ${num_classes}

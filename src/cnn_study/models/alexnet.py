@@ -10,14 +10,13 @@ class AlexNet(nn.Module):
     def __init__(
         self,
         input_channels: int = 3,
-        output_classes: int = 1000,
+        num_classes: int = 1000,
         use_bn: bool = False,
         classifier_type: str = "conv_dense",
     ):
         super().__init__()
 
         self.input_channels = input_channels
-        self.output_classes = output_classes
         self.use_bn = use_bn
 
         layers = []
@@ -59,7 +58,7 @@ class AlexNet(nn.Module):
 
         self.classifier = Classifier(
             256,
-            output_classes,
+            num_classes,
             hidden_features=4096,
             num_hidden_layers=2,
             expected_feature_size=6,
