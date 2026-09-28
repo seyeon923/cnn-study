@@ -168,3 +168,5 @@ Study and implementation of CNN architectures (LeNet, AlexNet, VGG, ResNet, Mobi
 - ImageNet Classification, Object Detection, Geolocalization 등 다양한 task 에 대해서도 모델 크기/속도 대비 경쟁력 있는 성능을 보여줌
 - Face Attribute Classification 실험에서 Distillation 학습을 적용하여 추가 정규화 없이도 높은 성능을 달성
 - Teacher 모델 대비 약 100배 이상의 계산량 절감과 유사한 정확도 달성
+
+- Implementation: [cnn_study.models.mobilenet](./src/cnn_study/models/mobilenet.py)
