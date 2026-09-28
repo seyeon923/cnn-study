@@ -142,6 +142,8 @@ Study and implementation of CNN architectures (LeNet, AlexNet, VGG, ResNet, Mobi
 - Object Detection 에도 잘 동작 함
   - Faster R-CNN 에서 backbone 을 VGG => ResNet 으로 바꾸는 것만으로 큰 성능 향상을 보임
 
+- Implementation: [cnn_study.models.resnet](./src/cnn_study/models/resnet.py)
+
 ## MobileNet
 
 - Paper: [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/pdf/1704.04861)
