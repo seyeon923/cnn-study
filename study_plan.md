@@ -78,17 +78,17 @@
 
 ### 학습
 
-- [ ] 논문 읽기
-- [ ] Residual Block 구현
-- [ ] ResNet18 구현
-- [ ] ResNet34 구현
+- [x] 논문 읽기
+- [x] Residual Block 구현
+- [x] ResNet18 구현
+- [x] ResNet34 구현
 - [ ] CIFAR10 학습
 
 ### 확인할 것
 
-- [ ] Skip Connection
-- [ ] Gradient Vanishing 해결
-- [ ] Deep Network 학습 가능 이유
+- [x] Skip Connection
+- [x] Degradation 해결
+- [x] Deep Network 학습 가능 이유
 
 ---
 
