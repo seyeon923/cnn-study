@@ -120,7 +120,7 @@ class MobileNet(nn.Module):
         return x
 
 
-class ResidualInvertedBottleneck(nn.Module):
+class InvertedResidualBottleneck(nn.Module):
     def __init__(
         self, in_channels: int, out_channels: int, stride: int = 1, expansion_factor: int = 6
     ):
@@ -281,7 +281,7 @@ class MobileNetV2(nn.Module):
         layers = []
         for _ in range(repeats):
             layers.append(
-                ResidualInvertedBottleneck(
+                InvertedResidualBottleneck(
                     in_channels=in_channels,
                     out_channels=out_channels,
                     stride=stride,
