@@ -96,16 +96,16 @@
 
 ### 학습
 
-- [ ] MobileNet V1 구조 분석
-- [ ] MobileNet V2 구조 분석
+- [x] MobileNet V1 구조 분석
+- [x] MobileNet V2 구조 분석
 - [ ] MBConv 이해
 - [ ] CIFAR10 학습
 
 ### 확인할 것
 
-- [ ] Depthwise Separable Convolution
-- [ ] Inverted Residual
-- [ ] Linear Bottleneck
+- [x] Depthwise Separable Convolution
+- [x] Inverted Residual
+- [x] Linear Bottleneck
 
 ---
 
