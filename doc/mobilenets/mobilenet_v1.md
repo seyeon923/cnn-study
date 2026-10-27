@@ -4,13 +4,13 @@
 
 - **Depthwise Separable Convolution** 구조를 기반으로 한 모바일/임베디드 환경을 위한
  효율적인 경량화 모델 구조 제안
-  ![Standard Convoution vs Depthwise Separable Convolution](./standard_conv_vs_depthwise_separable_conv.png)
+  ![Standard Convoution vs Depthwise Separable Convolution](./images/standard_conv_vs_depthwise_separable_conv.png)
   - 3x3 convolution 대신 channel 별(depthwise) 3x3 colvolution 과 1x1 convolution(pointwise) 으로 분리
   - 일종의 극단적인 factorized convolution
   - 3x3 depthwise convolution 에서는 filtering 만하고 pointwise 에서 channel 결합하여 새로운 feature 생성
   - 일반적인 3x3 convolution 대비 8-9배 적은 계산
   - 분리된 각각의 colvolution layer 뒤에 BN, ReLU 유닛
-    ![BN and ReLU Position in Depthwise Separable Convolution](./bn_relu_position_in_depthwise_separable_conv.png)
+    ![BN and ReLU Position in Depthwise Separable Convolution](./images/bn_relu_position_in_depthwise_separable_conv.png)
   - 첫 번째 층만 일반 3x3 convolution 사용하고, 마지막은 GAP 후 FC 사용
 
 - Width multiplier, resolution multiplier hyper parameter 로 모델 크기 결정

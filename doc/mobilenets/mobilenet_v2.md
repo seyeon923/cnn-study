@@ -4,7 +4,7 @@
 
 - Inverted Residual with Linear Bottlneck
 
-  ![Evolution of separable convolution blocks](./evolution_of_separable_conv_blocks.png)
+  ![Evolution of separable convolution blocks](./images/evolution_of_separable_conv_blocks.png)
   - Linear Bottleneck
     - 보통 d 차원(채널)의 정보는 "manifold of interest"를 형성한다고 보고, 저차원의 subspace로 embeding이 가능하다고 봄.
     - ReLU의 경우 non-zero value에 대해서는 입/출력이 동일하므로 해당 영역에서는 linear transformation으로 볼 수 있음.
@@ -12,8 +12,8 @@
     - 저자의 실험에서도 bottleneck 층에 non-linear activation을 없앴을 때 약간의 정확도 향상을 확인
   - Inverted Residual
 
-    ![Inverted Residual Block](./inverted_residual_block.png)
-    ![Inverted Residual Bottleneck](./inverted_residual_bottleneck_detail.png)
+    ![Inverted Residual Block](./images/inverted_residual_block.png)
+    ![Inverted Residual Bottleneck](./images/inverted_residual_bottleneck_detail.png)
     - 기존 ResNet의 bottlneck 구조는 Input -> Bottleneck(저차원) -> Output(+ Input Identity) 
     - MobileNetV2 에서는 Input Bottleneck -> Expansion Layer ->  Output Bottleneck(+ Input Identity) 으로 Bottleneck이 input/output 이 되고, 그 중간에 큰 차원의 layer 를 둠.
     - Expansion Layer 는 1x1 convolution 으로 expansion ratio 만큼 차원을 늘린 뒤, 3x3 depth-wise convolution 후 다시 1x1 covolution 으로 출력 차원 수를 맞춤.
@@ -23,7 +23,7 @@
     - Inverted Residual 형태가 기존의 residual bottleneck 보다 추론시 메모리를 덜 쓰도록 최적화 가능.
 
 - 첫 layer에 regular full convolution 후 이후에 bottleneck block을 반복적으로 사용하여 모델 구성.
-  ![MobileNetV2 Architecture](./mobilenet_v2_architecture.png)
+  ![MobileNetV2 Architecture](./images/mobilenet_v2_architecture.png)
 
   - 첫 bottleneck layer를 제외하곤 모두 expansion ratio 6 사용
   - 실험 결과 expansion ratio 5~10 구간에서는 유사한 성능을 보였으며, MobileNetV2는 정확도와 효율성의 균형을 고려하여 expansion ratio 6을 채택.
