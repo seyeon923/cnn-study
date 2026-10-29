@@ -1,6 +1,6 @@
 # MobileNet
 
-- Paper: [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/pdf/1704.04861), Apr 2017
+- Paper: [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861), Apr 2017
 
 - **Depthwise Separable Convolution** 구조를 기반으로 한 모바일/임베디드 환경을 위한
  효율적인 경량화 모델 구조 제안
