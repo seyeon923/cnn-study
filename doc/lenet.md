@@ -1,6 +1,6 @@
 # LeNet-5
 
-- Paper: [Gradient-Based Learning Applied to Document Recognition](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf)
+- Paper: [Gradient-Based Learning Applied to Document Recognition](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf), Nov 1998
 - Authors: Yann LeCunn, Leon Bottou, Yoshua Bengio, and Patrick Haffner
 
 ![LeNet-5 Architecture](./images/lenet_architecture.png)

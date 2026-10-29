@@ -1,6 +1,6 @@
 # ResNet
 
-- Paper: [Deep Residual Learning for Image Recognition](https://arxiv.org/pdf/1512.03385)
+- Paper: [Deep Residual Learning for Image Recognition](https://arxiv.org/pdf/1512.03385), Dec 2015
 - Authors: Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun
 
 ![Residual Block](./images/residual_block.png)

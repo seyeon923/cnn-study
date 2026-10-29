@@ -1,6 +1,6 @@
 # VGG
 
-- Paper: [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556)
+- Paper: [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556), Sep 2014(v1) - Apr 2015(v6)
 - Authors: Karen Simonyan & Andrew Zisserman
 
 ![VGG Architecture](./images/vgg_architecture.png)

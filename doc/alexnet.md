@@ -1,6 +1,6 @@
 # AlexNet
 
-- Paper: [ImageNet Classification with Deep Convolutional Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)
+- Paper: [ImageNet Classification with Deep Convolutional Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf), 2012
 - Authors: Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton
 
 ![AlexNet Architecture](./images/alexnet_architecture.png)

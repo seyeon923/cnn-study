@@ -1,6 +1,6 @@
 # MobileNetV2
 
-- Paper: [MobileNetV2: inverted Residuals and Linear Bottlenecks](https://arxiv.org/pdf/1801.04381)
+- Paper: [MobileNetV2: inverted Residuals and Linear Bottlenecks](https://arxiv.org/pdf/1801.04381), Jan 2018(v1) - Mar 2019(v4)
 
 - Inverted Residual with Linear Bottlneck
 
